@@ -1,6 +1,7 @@
 package main
 
 import (
+	"fmt"
 	"log"
 	"os"
 
@@ -21,7 +22,7 @@ func initApplication() *application {
 	}
 
 	cel.AppName = "myapp"
-	cel.Debug = true
+	fmt.Println("Debug is set to", cel.Debug)
 
 	app := &application{
 		App: cel,
