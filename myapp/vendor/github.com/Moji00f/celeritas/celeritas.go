@@ -1,17 +1,35 @@
 package celeritas
 
-func TestFunc(a, b int) int {
-	return a + b
+type Celeritas struct {
+	AppName string
+	Debug   bool
+	Version string
 }
 
-func TestFunc2(a, b int) int {
-	return a - b
+func (c *Celeritas) New(rootPath string) error {
+	pathConfig := initPaths{
+		rootPath:    rootPath,
+		folderNames: []string{"handlers", "migrations", "views", "data", "public", "tmp", "logs", "middleware"},
+	}
+
+	err := c.Init(pathConfig)
+	if err != nil {
+		return err
+	}
+
+	return nil
 }
 
-func TestFunc3(a, b int) int {
-	return a * b
-}
+func (c *Celeritas) Init(p initPaths) error {
+	root := p.rootPath
+	for _, path := range p.folderNames {
+		//create folder if it doesn't exist
 
-func TestFunc4(a, b int) int {
-	return a / b
+		err := c.CreateDirIfNotExist(root + "/" + path)
+		if err != nil {
+			return err
+		}
+	}
+
+	return nil
 }
