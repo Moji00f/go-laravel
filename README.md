@@ -68,3 +68,9 @@ test:
 	@go test ./...
 	@echo "Done!"
 ```
+[install GoDotEnv](https://github.com/joho/godotenv)
+
+```
+cd celeritas
+go get github.com/joho/godotenv
+```
