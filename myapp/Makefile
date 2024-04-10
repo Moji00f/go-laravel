@@ -1,7 +1,8 @@
 BINARY_NAME=celeritasApp
 
 build:
-	@go mod vendor
+	# @go mod vendor
+	@go get ${PACKAGE_REPO}
 	@echo "Building Celeritas..."
 	@go build -o tmp/${BINARY_NAME} .
 	@echo "Celeritas built!"

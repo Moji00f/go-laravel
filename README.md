@@ -73,4 +73,6 @@ test:
 ```
 cd celeritas
 go get github.com/joho/godotenv
+go get -u github.com/go-chi/chi/v5
+go get github.com/go-chi/chi/v5/middleware
 ```
