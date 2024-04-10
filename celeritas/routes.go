@@ -17,9 +17,9 @@ func (c *Celeritas) routes() http.Handler{
 	}
 	mux.Use(middleware.Recoverer)
 
-	mux.Get("/", func (w http.ResponseWriter, r * http.Request)  {
-		fmt.Fprint(w, "Welcome to Celeritas")
-	})
+	// mux.Get("/", func (w http.ResponseWriter, r * http.Request)  {
+	// 	fmt.Fprint(w, "Welcome to Celeritas")
+	// })
 
 	return mux
 }
