@@ -34,6 +34,8 @@ func (c *Render) Page(w http.ResponseWriter, r *http.Request, view string, varia
 
 	case "jet":
 	}
+
+	return nil
 }
 
 func (c *Render) GoPage(w http.ResponseWriter, r *http.Request, view string, data interface{}) error {
@@ -41,6 +43,15 @@ func (c *Render) GoPage(w http.ResponseWriter, r *http.Request, view string, dat
 	if err != nil {
 		return err
 	}
+
+	// file, err := os.OpenFile("custom.log", os.O_APPEND|os.O_CREATE|os.O_WRONLY, 0644)
+	// if err != nil {
+	// 	log.Fatal(err)
+	// }
+	// defer file.Close()
+
+	// logger := log.New(file, "Custom Log", log.LstdFlags)
+	// logger.Printf("%s/views/%s.page.tmpl", c.RootPath, view)
 
 	td := &TemplateData{}
 	if data != nil {

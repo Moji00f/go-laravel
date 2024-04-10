@@ -1,6 +1,7 @@
 # github.com/Moji00f/celeritas v0.0.0-00010101000000-000000000000 => ../celeritas
 ## explicit; go 1.19
 github.com/Moji00f/celeritas
+github.com/Moji00f/celeritas/render
 # github.com/go-chi/chi/v5 v5.0.12
 ## explicit; go 1.14
 github.com/go-chi/chi/v5
