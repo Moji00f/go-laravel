@@ -7,7 +7,7 @@ import (
 )
 
 type application struct {
-	App *celeritas.Celeritas
+	App      *celeritas.Celeritas
 	Handlers *handlers.Handlers
 }
 
