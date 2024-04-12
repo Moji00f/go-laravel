@@ -78,14 +78,17 @@ func (c *Celeritas) New(rootPath string) error {
 			lifetime: os.Getenv("COOKIE_LIFETIME"),
 			persist:  os.Getenv("COOKIE_PERSIST"),
 			secure:   os.Getenv("COOKIE_SECURE"),
+			domain:   os.Getenv("COOKIE_DOMAIN"),
 		},
 		session: os.Getenv("SESSION_TYPE"),
 	}
 
+	// create session
 	sess := session.Session{
 		CookieLifeTime: c.config.cookie.lifetime,
 		CookiePersist:  c.config.cookie.persist,
 		CookieName:     c.config.cookie.name,
+		CookieDomain:   c.config.cookie.domain,
 		// CookieSecure:   c.config.cookie.secure,
 		SessionType: c.config.session,
 	}
