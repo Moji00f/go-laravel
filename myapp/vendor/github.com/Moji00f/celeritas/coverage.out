@@ -1,0 +1,23 @@
+mode: set
+github.com/Moji00f/celeritas/render/render.go:35.111,36.37 1 1
+github.com/Moji00f/celeritas/render/render.go:45.2,45.52 1 1
+github.com/Moji00f/celeritas/render/render.go:37.12,38.36 1 1
+github.com/Moji00f/celeritas/render/render.go:40.13,41.48 1 1
+github.com/Moji00f/celeritas/render/render.go:42.10,42.10 0 1
+github.com/Moji00f/celeritas/render/render.go:48.102,50.16 2 1
+github.com/Moji00f/celeritas/render/render.go:63.2,64.17 2 1
+github.com/Moji00f/celeritas/render/render.go:68.2,69.16 2 1
+github.com/Moji00f/celeritas/render/render.go:73.2,73.12 1 1
+github.com/Moji00f/celeritas/render/render.go:50.16,52.3 1 1
+github.com/Moji00f/celeritas/render/render.go:64.17,66.3 1 0
+github.com/Moji00f/celeritas/render/render.go:69.16,71.3 1 0
+github.com/Moji00f/celeritas/render/render.go:76.122,80.22 2 1
+github.com/Moji00f/celeritas/render/render.go:86.2,87.17 2 1
+github.com/Moji00f/celeritas/render/render.go:91.2,93.16 2 1
+github.com/Moji00f/celeritas/render/render.go:98.2,98.46 1 1
+github.com/Moji00f/celeritas/render/render.go:104.2,104.12 1 1
+github.com/Moji00f/celeritas/render/render.go:80.22,82.3 1 1
+github.com/Moji00f/celeritas/render/render.go:82.8,84.3 1 0
+github.com/Moji00f/celeritas/render/render.go:87.17,89.3 1 0
+github.com/Moji00f/celeritas/render/render.go:93.16,96.3 2 1
+github.com/Moji00f/celeritas/render/render.go:98.46,102.3 2 0
