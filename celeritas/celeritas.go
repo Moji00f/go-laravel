@@ -10,6 +10,8 @@ import (
 
 	"github.com/CloudyKit/jet/v6"
 	"github.com/Moji00f/celeritas/render"
+	"github.com/Moji00f/celeritas/session"
+	"github.com/alexedwards/scs/v2"
 	"github.com/go-chi/chi/v5"
 	"github.com/joho/godotenv"
 )
@@ -25,6 +27,7 @@ type Celeritas struct {
 	RootPath string
 	Routes   *chi.Mux
 	Render   *render.Render
+	Session  *scs.SessionManager
 	JetViews *jet.Set
 	config   config
 }
@@ -32,6 +35,8 @@ type Celeritas struct {
 type config struct {
 	port     string
 	renderer string
+	cookie   cookieConfig
+	session  string
 }
 
 func (c *Celeritas) New(rootPath string) error {
@@ -68,7 +73,24 @@ func (c *Celeritas) New(rootPath string) error {
 	c.config = config{
 		port:     os.Getenv("PORT"),
 		renderer: os.Getenv("RENDERER"),
+		cookie: cookieConfig{
+			name:     os.Getenv("COOKIE_NAME"),
+			lifetime: os.Getenv("COOKIE_LIFETIME"),
+			persist:  os.Getenv("COOKIE_PERSIST"),
+			secure:   os.Getenv("COOKIE_SECURE"),
+		},
+		session: os.Getenv("SESSION_TYPE"),
 	}
+
+	sess := session.Session{
+		CookieLifeTime: c.config.cookie.lifetime,
+		CookiePersist:  c.config.cookie.persist,
+		CookieName:     c.config.cookie.name,
+		// CookieSecure:   c.config.cookie.secure,
+		SessionType: c.config.session,
+	}
+
+	c.Session = sess.InitSession()
 
 	var views = jet.NewSet(jet.NewOSFileSystemLoader(fmt.Sprintf("%s/views", rootPath)), jet.InDevelopmentMode())
 	c.JetViews = views
