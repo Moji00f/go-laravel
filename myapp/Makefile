@@ -31,3 +31,9 @@ test:
 	@echo "Testing..."
 	@go test ./...
 	@echo "Done!"
+
+start_compose:
+	@docker compose up -d 
+
+stop_compose:
+	@docker compose down 
