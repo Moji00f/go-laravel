@@ -84,4 +84,14 @@ go get github.com/alexedwards/scs/v2
 go get github.com/jackc/pgconn
 go get github.com/jackc/pgx/v4
 go get github.com/jackc/pgx/stdlib
+
+cd myapp
+go get github.com/upper/db/v4/adapter/postgresql
+go get github.com/upper/db/v4/adapter/mysql
+go mod vendor 
+
+
+```
+```
+https://upper.io/v4/
 ```

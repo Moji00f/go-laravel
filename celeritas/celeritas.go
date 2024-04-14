@@ -67,20 +67,6 @@ func (c *Celeritas) New(rootPath string) error {
 	infoLog, errorLog := c.startLoggers()
 
 	// connect to database
-	// if os.Getenv("DATABASE_TYPE") != "" {
-	// 	db, err := c.OpenDB(os.Getenv("DATABASE_TYPE"), c.BuildDSN())
-	// 	if err != nil {
-	// 		errorLog.Println(err)
-	// 		os.Exit(1)
-	// 	}
-
-	// 	c.DB = Database{
-	// 		DataType: os.Getenv("DATABASE_TYPE"),
-	// 		Pool:     db,
-	// 	}
-	// }
-
-	// connect to database
 	if os.Getenv("DATABASE_TYPE") != "" {
 		db, err := c.OpenDB(os.Getenv("DATABASE_TYPE"), c.BuildDSN())
 		if err != nil {
@@ -198,27 +184,6 @@ func (c *Celeritas) createRenderer() {
 	c.Render = &myRenderer
 }
 
-// func (c *Celeritas) BuildDSN() string {
-// 	var dsn string
-
-// 	switch os.Getenv("DATABASE_TYPE") {
-// 	case "postgres", "postgresql":
-// 		dsn = fmt.Sprintf("host=%s port=%s user=%s dbname=%s sslmode=%s timezone=UTC connect_timeout=5",
-// 			os.Getenv("DATABASE_HOST"),
-// 			os.Getenv("DATABASE_PORT"),
-// 			os.Getenv("DATABASE_USER"),
-// 			os.Getenv("DATABASE_NAME"),
-// 			os.Getenv("DATABASE_SSL_MODE"))
-
-// 		if os.Getenv("DATABASE_PASS") != "" {
-// 			dsn = fmt.Sprintf("%s password=%s", dsn, os.Getenv("DATABASE_PASS"))
-// 		}
-// 	default:
-
-// 	}
-
-// 	return dsn
-// }
 
 // BuildDSN builds the datasource name for our database, and returns it as a string
 func (c *Celeritas) BuildDSN() string {
