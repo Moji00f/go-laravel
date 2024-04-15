@@ -8,6 +8,7 @@ import (
 	"golang.org/x/crypto/bcrypt"
 )
 
+// User is the type for a user
 type User struct {
 	ID        int       `db:"id,omitempty"`
 	FirstName string    `db:"first_name"`
@@ -15,8 +16,8 @@ type User struct {
 	Email     string    `db:"email"`
 	Active    int       `db:"user_active"`
 	Password  string    `db:"password"`
-	CreateAt  time.Time `db:"created_at"`
-	UpdateAt  time.Time `db:"updated_at"`
+	CreatedAt time.Time `db:"created_at"`
+	UpdatedAt time.Time `db:"updated_at"`
 	Token     Token     `db:"-"`
 }
 
@@ -26,12 +27,12 @@ func (u *User) Table() string {
 }
 
 // GetAll returns a slice of all users
-func (u *User) GetAll(condition up.Cond) ([]*User, error) {
+func (u *User) GetAll() ([]*User, error) {
 	collection := upper.Collection(u.Table())
 
 	var all []*User
 
-	res := collection.Find(condition)
+	res := collection.Find().OrderBy("last_name")
 	err := res.All(&all)
 	if err != nil {
 		return nil, err
@@ -43,9 +44,8 @@ func (u *User) GetAll(condition up.Cond) ([]*User, error) {
 // GetByEmail gets one user, by email
 func (u *User) GetByEmail(email string) (*User, error) {
 	var theUser User
-
 	collection := upper.Collection(u.Table())
-	res := collection.Find(up.Cond{"email=": email})
+	res := collection.Find(up.Cond{"email =": email})
 	err := res.One(&theUser)
 	if err != nil {
 		return nil, err
@@ -53,7 +53,7 @@ func (u *User) GetByEmail(email string) (*User, error) {
 
 	var token Token
 	collection = upper.Collection(token.Table())
-	res = collection.Find(up.Cond{"user_id=": theUser.ID, "expiry <": time.Now()}).OrderBy("created_at desc")
+	res = collection.Find(up.Cond{"user_id =": theUser.ID, "expiry <": time.Now()}).OrderBy("created_at desc")
 	err = res.One(&token)
 	if err != nil {
 		if err != up.ErrNilRecord && err != up.ErrNoMoreRows {
@@ -88,12 +88,13 @@ func (u *User) Get(id int) (*User, error) {
 	}
 
 	theUser.Token = token
+
 	return &theUser, nil
 }
 
 // Update updates a user record in the database
 func (u *User) Update(theUser User) error {
-	theUser.UpdateAt = time.Now()
+	theUser.UpdatedAt = time.Now()
 	collection := upper.Collection(u.Table())
 	res := collection.Find(theUser.ID)
 	err := res.Update(&theUser)
@@ -112,6 +113,7 @@ func (u *User) Delete(id int) error {
 		return err
 	}
 	return nil
+
 }
 
 // Insert inserts a new user, and returns the newly inserted id
@@ -121,8 +123,8 @@ func (u *User) Insert(theUser User) (int, error) {
 		return 0, err
 	}
 
-	theUser.CreateAt = time.Now()
-	theUser.UpdateAt = time.Now()
+	theUser.CreatedAt = time.Now()
+	theUser.UpdatedAt = time.Now()
 	theUser.Password = string(newHash)
 
 	collection := upper.Collection(u.Table())
@@ -131,10 +133,9 @@ func (u *User) Insert(theUser User) (int, error) {
 		return 0, err
 	}
 
-	id := getInsertID(res.ID)
+	id := getInsertID(res.ID())
 
 	return id, nil
-
 }
 
 // ResetPassword resets a users's password, by id, using supplied password
@@ -157,7 +158,6 @@ func (u *User) ResetPassword(id int, password string) error {
 	}
 
 	return nil
-
 }
 
 // PasswordMatches verifies a supplied password against the hash stored in the database.
@@ -172,7 +172,7 @@ func (u *User) PasswordMatches(plainText string) (bool, error) {
 			// invalid password
 			return false, nil
 		default:
-			// some kind of error accured
+			// some kind of error occurred
 			return false, err
 		}
 	}
