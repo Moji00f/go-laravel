@@ -1,6 +1,7 @@
 package data
 
 import (
+	"errors"
 	"time"
 
 	up "github.com/upper/db/v4"
@@ -137,25 +138,44 @@ func (u *User) Insert(theUser User) (int, error) {
 }
 
 // ResetPassword resets a users's password, by id, using supplied password
-func (u *User) ResetPassword(id int, password string) error{
+func (u *User) ResetPassword(id int, password string) error {
 	newHash, err := bcrypt.GenerateFromPassword([]byte(password), 12)
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
-	theUser , err:= u.Get(id)
-	if err != nil{
+	theUser, err := u.Get(id)
+	if err != nil {
 		return err
 	}
 
 	u.Password = string(newHash)
 
-	
 	err = theUser.Update(*u)
-	if err != nil{
+	if err != nil {
 		return err
 	}
 
 	return nil
 
+}
+
+// PasswordMatches verifies a supplied password against the hash stored in the database.
+// It returns true if valid, and false if the password does not match, or if there is an
+// error. Note that an error is only returned if something goes wrong (since an invalid password
+// is not an error -- it's just the wrong password))
+func (u *User) PasswordMatches(plainText string) (bool, error) {
+	err := bcrypt.CompareHashAndPassword([]byte(u.Password), []byte(plainText))
+	if err != nil {
+		switch {
+		case errors.Is(err, bcrypt.ErrMismatchedHashAndPassword):
+			// invalid password
+			return false, nil
+		default:
+			// some kind of error accured
+			return false, err
+		}
+	}
+
+	return true, nil
 }
