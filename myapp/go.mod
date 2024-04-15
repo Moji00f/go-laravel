@@ -8,6 +8,8 @@ require (
 	github.com/CloudyKit/jet/v6 v6.2.0
 	github.com/Moji00f/celeritas v0.0.0-00010101000000-000000000000
 	github.com/go-chi/chi/v5 v5.0.12
+	github.com/upper/db/v4 v4.7.0
+	golang.org/x/crypto v0.20.0
 )
 
 require (
@@ -25,7 +27,5 @@ require (
 	github.com/joho/godotenv v1.5.1 // indirect
 	github.com/lib/pq v1.10.9 // indirect
 	github.com/segmentio/fasthash v1.0.3 // indirect
-	github.com/upper/db/v4 v4.7.0 // indirect
-	golang.org/x/crypto v0.20.0 // indirect
 	golang.org/x/text v0.14.0 // indirect
 )
