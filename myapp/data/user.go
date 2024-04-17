@@ -118,6 +118,10 @@ func (u *User) Delete(id int) error {
 
 // Insert inserts a new user, and returns the newly inserted id
 func (u *User) Insert(theUser User) (int, error) {
+	existingUser, err := u.GetByEmail(theUser.Email)
+    if err == nil && existingUser.ID != 0 {
+        return 0, errors.New("email address already registered")
+    }
 	newHash, err := bcrypt.GenerateFromPassword([]byte(theUser.Password), 12)
 	if err != nil {
 		return 0, err

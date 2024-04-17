@@ -7,6 +7,7 @@ replace github.com/Moji00f/celeritas => ../celeritas
 require (
 	github.com/CloudyKit/jet/v6 v6.2.0
 	github.com/Moji00f/celeritas v0.0.0-00010101000000-000000000000
+	github.com/alexedwards/scs/v2 v2.8.0
 	github.com/go-chi/chi/v5 v5.0.12
 	github.com/upper/db/v4 v4.7.0
 	golang.org/x/crypto v0.20.0
@@ -14,7 +15,6 @@ require (
 
 require (
 	github.com/CloudyKit/fastprinter v0.0.0-20200109182630-33d98a066a53 // indirect
-	github.com/alexedwards/scs/v2 v2.8.0 // indirect
 	github.com/go-sql-driver/mysql v1.7.1 // indirect
 	github.com/jackc/chunkreader/v2 v2.0.1 // indirect
 	github.com/jackc/pgconn v1.14.3 // indirect
