@@ -1,6 +1,7 @@
 package handlers
 
 import (
+	"myapp/data"
 	"net/http"
 
 	"github.com/CloudyKit/jet/v6"
@@ -8,7 +9,8 @@ import (
 )
 
 type Handlers struct {
-	App *celeritas.Celeritas
+	App    *celeritas.Celeritas
+	Models data.Models
 }
 
 func (h *Handlers) Home(w http.ResponseWriter, r *http.Request) {
@@ -37,6 +39,7 @@ func (h *Handlers) JetPage(w http.ResponseWriter, r *http.Request) {
 
 func (h *Handlers) SesstionTest(w http.ResponseWriter, r *http.Request) {
 	myData := "bar"
+	// myData := h.App.Session.Get(r.Context(), "userID")
 	h.App.Session.Put(r.Context(), "foo", myData)
 	myValue := h.App.Session.GetString(r.Context(), "foo")
 

@@ -22,6 +22,9 @@ func (a *application) routes() *chi.Mux {
 		r.Get("/go-page", a.Handlers.GoPage)
 		r.Get("/jet-page", a.Handlers.JetPage)
 		r.Get("/sessions", a.Handlers.SesstionTest)
+		r.Get("/users/login", a.Handlers.UserLogin)
+		r.Post("/users/login", a.Handlers.PostUserLogin)
+		r.Get("/users/logout", a.Handlers.Logout)
 	})
 
 	// a.App.Routes.Get("/", a.Handlers.Home)
@@ -114,7 +117,7 @@ func (a *application) routes() *chi.Mux {
 		}
 
 		fmt.Fprintf(w, "%s %s %s", u.FirstName, u.LastName, u.Email)
-	})
+	})   
 
 	mux.Get("/update-user/{id}", func(w http.ResponseWriter, r *http.Request) {
 		id, _ := strconv.Atoi(chi.URLParam(r, "id"))
@@ -126,7 +129,7 @@ func (a *application) routes() *chi.Mux {
 
 		u.LastName = a.App.RandomString(10)
 		err = u.Update(*u)
-		if err != nil {
+		if err != nil { 
 			a.App.ErrorLog.Println(err)
 			return
 		}
