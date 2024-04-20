@@ -1,12 +1,13 @@
 package main
 
 import (
-	"fmt"
 	"log"
+	"myapp/data"
 	"myapp/handlers"
 	"os"
 
 	"github.com/Moji00f/celeritas"
+	
 )
 
 func initApplication() *application {
@@ -23,18 +24,21 @@ func initApplication() *application {
 	}
 
 	cel.AppName = "myapp"
-	fmt.Println("Debug is set to", cel.Debug)
-	
+	// fmt.Println("Debug is set to", cel.Debug)
+
 	myHandlers := &handlers.Handlers{
-		App: cel,	
+		App: cel,
 	}
 
 	app := &application{
-		App: cel,
+		App:      cel,
 		Handlers: myHandlers,
 	}
 
 	app.App.Routes = app.routes()
+	app.Models = data.New(app.App.DB.Pool)
+	myHandlers.Models = app.Models
+
 
 	return app
 

@@ -1,5 +1,6 @@
 package data
 
+<<<<<<< HEAD
 import (
 	"crypto/rand"
 	"crypto/sha256"
@@ -18,6 +19,16 @@ type Token struct {
 	FirstName string    `db:"first_name" json:"first_name"`
 	Email     string    `db:"email" json:"email"`
 	PlainText string    `db:"token" json:"token"`
+=======
+import "time"
+
+type Token struct {
+	ID        int       `db:"id" json:"id"`
+	User_ID   int       `db:"user_id" json:"user_id"`
+	FirstName string    `db:"first_name" json:"first_name"`
+	Email     string    `db:"email" json:"email"`
+	PlainText string    `db:"-" json:"token"`
+>>>>>>> 391b5c17fc0736a7eeedb51d48c7db99aa56ac68
 	Hash      []byte    `db:"token_hash" json:"-"`
 	CreateAt  time.Time `db:"created_at" json:"created_at"`
 	UpdateAt  time.Time `db:"updated_at" son:"updated_at"`
@@ -27,6 +38,7 @@ type Token struct {
 func (t *Token) Table() string {
 	return "tokens"
 }
+<<<<<<< HEAD
 
 func (t *Token) GetUserForToken(token string) (*User, error) {
 	var u User
@@ -199,3 +211,5 @@ func (t *Token) ValidToken(token string) (bool, error) {
 
 	return true, nil
 }
+=======
+>>>>>>> 391b5c17fc0736a7eeedb51d48c7db99aa56ac68

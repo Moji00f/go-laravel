@@ -28,6 +28,8 @@
     </div>
 </div>
 
+<script src="/public/js/bootstarap.js"> </script>
+
 {{yield js()}}
 
 </body>
