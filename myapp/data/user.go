@@ -1,9 +1,5 @@
 package data
 
-<<<<<<< HEAD
-import "time"
-
-=======
 import (
 	"errors"
 	"time"
@@ -13,7 +9,6 @@ import (
 )
 
 // User is the type for a user
->>>>>>> 391b5c17fc0736a7eeedb51d48c7db99aa56ac68
 type User struct {
 	ID        int       `db:"id,omitempty"`
 	FirstName string    `db:"first_name"`
@@ -21,16 +16,6 @@ type User struct {
 	Email     string    `db:"email"`
 	Active    int       `db:"user_active"`
 	Password  string    `db:"password"`
-<<<<<<< HEAD
-	CreateAt  time.Time `db:"created_at"`
-	UpdateAt  time.Time `db:"updated_at"`
-	Token     Token     `db:"-"`
-}
-
-func (u *User) Table() string {
-	return "users"
-}
-=======
 	CreatedAt time.Time `db:"created_at"`
 	UpdatedAt time.Time `db:"updated_at"`
 	Token     Token     `db:"-"`
@@ -68,7 +53,7 @@ func (u *User) GetByEmail(email string) (*User, error) {
 
 	var token Token
 	collection = upper.Collection(token.Table())
-	res = collection.Find(up.Cond{"user_id =": theUser.ID, "expiry <": time.Now()}).OrderBy("created_at desc")
+	res = collection.Find(up.Cond{"user_id =": theUser.ID, "expiry >": time.Now()}).OrderBy("created_at desc")
 	err = res.One(&token)
 	if err != nil {
 		if err != up.ErrNilRecord && err != up.ErrNoMoreRows {
@@ -94,7 +79,7 @@ func (u *User) Get(id int) (*User, error) {
 
 	var token Token
 	collection = upper.Collection(token.Table())
-	res = collection.Find(up.Cond{"user_id =": theUser.ID, "expiry <": time.Now()}).OrderBy("created_at desc")
+	res = collection.Find(up.Cond{"user_id =": theUser.ID, "expiry >": time.Now()}).OrderBy("created_at desc")
 	err = res.One(&token)
 	if err != nil {
 		if err != up.ErrNilRecord && err != up.ErrNoMoreRows {
@@ -133,10 +118,6 @@ func (u *User) Delete(id int) error {
 
 // Insert inserts a new user, and returns the newly inserted id
 func (u *User) Insert(theUser User) (int, error) {
-	existingUser, err := u.GetByEmail(theUser.Email)
-    if err == nil && existingUser.ID != 0 {
-        return 0, errors.New("email address already registered")
-    }
 	newHash, err := bcrypt.GenerateFromPassword([]byte(theUser.Password), 12)
 	if err != nil {
 		return 0, err
@@ -198,4 +179,3 @@ func (u *User) PasswordMatches(plainText string) (bool, error) {
 
 	return true, nil
 }
->>>>>>> 391b5c17fc0736a7eeedb51d48c7db99aa56ac68
