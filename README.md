@@ -90,7 +90,10 @@ go get github.com/upper/db/v4/adapter/postgresql
 go get github.com/upper/db/v4/adapter/mysql
 go mod vendor 
 
+#test Models
+go get github.com/DATA-DOG/go-sqlmock
 
+go get github.com/ory/dockertest/v3
 ```
 ```
 https://upper.io/v4/
