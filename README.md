@@ -71,6 +71,13 @@ test:
 [install GoDotEnv](https://github.com/joho/godotenv)
 
 ```
+cd data
+go test -v . --tags integration --count=1
+go test -cover . -v --tags integration --count=1
+go test -cover . --tags integration --count=1
+```
+
+```
 cd celeritas
 go get github.com/joho/godotenv
 
