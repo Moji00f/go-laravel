@@ -75,6 +75,10 @@ cd data
 go test -v . --tags integration --count=1
 go test -cover . -v --tags integration --count=1
 go test -cover . --tags integration --count=1
+
+
+go test -coverprofile=coverage.out
+go tool cover -html=coverage.out
 ```
 
 ```
@@ -101,7 +105,44 @@ go mod vendor
 go get github.com/DATA-DOG/go-sqlmock
 
 go get github.com/ory/dockertest/v3
+
+go get github.com/fatih/color
+
+cd celeritas
+go get github.com/golang-migrate/migrate/v4
+
+go get github.com/golang-migrate/migrate/v4/database/mysql
+
+go get github.com/golang-migrate/migrate/v4/database/postgres
+
+go get github.com/golang-migrate/migrate/v4/database/file
+
 ```
 ```
 https://upper.io/v4/
+```
+
+
+### run below code with root user to see percent of coverage 
+```
+go tool cover -html=coverage.out -o coverage.html && google-chrome --no-sandbox coverage.html
+```
+
+```
+#!/usr/bin/zsh
+
+# Allow user "chrome" to access the X server
+xhost +si:localuser:chrome
+
+# Run Google Chrome as user "chrome" with the specified display
+sudo -H -u chrome DISPLAY=:0 /usr/bin/google-chrome
+
+
+# useradd chrome -s /usr/bin/zsh -d /home/chrome -m 
+#!/usr/bin/zsh
+xhost +
+sudo -H -u chrome DISPLAY=:0 google-chrome
+
+#chmod a+x /root/Doccuments/chrome.sh
+
 ```
