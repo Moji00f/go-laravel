@@ -5,10 +5,10 @@ import (
 	"os"
 )
 
+//go:embed templates
 var templateFS embed.FS
 
 func copyFilefromTemplate(templatePath, targetFile string) error {
-
 	// TODO: check to ensure file does not already exist
 
 	data, err := templateFS.ReadFile(templatePath)
@@ -22,7 +22,6 @@ func copyFilefromTemplate(templatePath, targetFile string) error {
 	}
 
 	return nil
-
 }
 
 func copyDataToFile(data []byte, to string) error {

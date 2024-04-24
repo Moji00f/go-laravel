@@ -5,9 +5,8 @@ import (
 	"log"
 	"os"
 
-	"github.com/fatih/color"
-
 	"github.com/Moji00f/celeritas"
+	"github.com/fatih/color"
 )
 
 const version = "1.0.0"
@@ -20,19 +19,24 @@ func main() {
 		exitGracefully(err)
 	}
 
+	setup()
+
 	switch arg1 {
 	case "help":
 		showHelp()
+
 	case "version":
 		color.Yellow("Application version: " + version)
+
 	case "make":
-		if arg2 ==""{
+		if arg2 == "" {
 			exitGracefully(errors.New("make requires a subcommand: (migration|model|handler)"))
 		}
 		err = doMake(arg2, arg3)
 		if err != nil {
 			exitGracefully(err)
 		}
+
 	default:
 		log.Println(arg2, arg3)
 	}
@@ -40,6 +44,7 @@ func main() {
 
 func validateInput() (string, string, string, error) {
 	var arg1, arg2, arg3 string
+
 	if len(os.Args) > 1 {
 		arg1 = os.Args[1]
 
@@ -61,8 +66,9 @@ func validateInput() (string, string, string, error) {
 
 func showHelp() {
 	color.Yellow(`Available commands:
-	help		   - show the help commands
-	version		   - print application version 
+	help           - show the help commands
+	version        - print application version
+	
 	`)
 }
 
@@ -81,5 +87,6 @@ func exitGracefully(err error, msg ...string) {
 	} else {
 		color.Green("Finished!")
 	}
+
 	os.Exit(0)
 }
