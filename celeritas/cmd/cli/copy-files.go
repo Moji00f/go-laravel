@@ -30,6 +30,5 @@ func copyDataToFile(data []byte, to string) error {
 	if err != nil {
 		return err
 	}
-
 	return nil
 }

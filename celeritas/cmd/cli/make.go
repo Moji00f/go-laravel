@@ -7,14 +7,15 @@ import (
 )
 
 func doMake(arg2, arg3 string) error {
+
 	switch arg2 {
 	case "migration":
 		dbType := cel.DB.DataType
-		if arg3 == "" {
+		if arg3 == ""{
 			exitGracefully(errors.New("you must give the migration a name"))
 		}
 
-		fileName := fmt.Sprintf("%d-%s", time.Now().UnixMicro(), arg3)
+		fileName := fmt.Sprintf("%d_%s", time.Now().UnixMicro(), arg3)
 
 		upFile := cel.RootPath + "/migrations/" + fileName + "." + dbType + ".up.sql"
 		downFile := cel.RootPath + "/migrations/" + fileName + "." + dbType + ".down.sql"
@@ -28,7 +29,6 @@ func doMake(arg2, arg3 string) error {
 		if err != nil {
 			exitGracefully(err)
 		}
-
 	}
 
 	return nil
